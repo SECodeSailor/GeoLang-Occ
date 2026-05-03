@@ -16,6 +16,11 @@ class GeoLangOcc(BaseModule):
 
     def __init__(
         self,
+        img_backbone=None,
+        img_neck=None,
+        lifter=None,
+        encoder=None,
+        head=None, 
         freeze_img_backbone=False,
         freeze_img_neck=False,
         freeze_lifter=False,
@@ -34,6 +39,20 @@ class GeoLangOcc(BaseModule):
         self.img_backbone_out_indices = img_backbone_out_indices
         # self.use_post_fusion = use_post_fusion
         self.use_text = use_text
+
+        if img_backbone is not None:
+            self.img_backbone = builder.build_backbone(img_backbone)
+        if img_neck is not None:
+            try:
+                self.img_neck = builder.build_neck(img_neck)
+            except:
+                self.img_neck = MODELS.build(img_neck)
+        if lifter is not None:
+            self.lifter = builder.build_head(lifter)
+        if encoder is not None:
+            self.encoder = builder.build_head(encoder)
+        if head is not None:
+            self.head = builder.build_head(head)
 
         if freeze_img_backbone:
             self.img_backbone.requires_grad_(False)
