@@ -4,7 +4,7 @@
 - [2026/05/03]: Demo release.
 
 ## Introduction
-![contents](./assets/fig1.pdf)
+![contents](./assets/fig1.png)
 
 ## Benchmark Results
 
